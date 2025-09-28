@@ -1,0 +1,16 @@
+Feature,Windows_Command,Linux_UFW_Command,Complexity,GUI_Available,Notes
+Firewall Name,Windows Defender Firewall with Advanced Security,UFW (Uncomplicated Firewall),Medium,Yes,"Built into Windows, enterprise-grade features"
+Access Method,wf.msc or netsh advfirewall,sudo ufw or iptables directly,Medium,Yes,Multiple access methods available
+Enable/Disable,netsh advfirewall set allprofiles state on/off,sudo ufw enable/disable,Low,Yes,Can be managed via Group Policy
+List Rules,netsh advfirewall firewall show rule dir=in/out,sudo ufw status numbered,Low,Yes,Very detailed rule listing with filters
+Allow Port,"netsh advfirewall firewall add rule name=""RuleName"" dir=in action=allow protocol=TCP localport=PORT",sudo ufw allow PORT/tcp,Medium,Yes,Supports advanced rule conditions
+Block Port,"netsh advfirewall firewall add rule name=""RuleName"" dir=in action=block protocol=TCP localport=PORT",sudo ufw deny PORT/tcp,Medium,Yes,Supports advanced blocking conditions
+Allow Service,"netsh advfirewall firewall add rule name=""RuleName"" dir=in action=allow service=SERVICE",sudo ufw allow SERVICE,Medium,Yes,Can target specific Windows services
+Block Service,"netsh advfirewall firewall add rule name=""RuleName"" dir=in action=block service=SERVICE",sudo ufw deny SERVICE,Medium,Yes,Can block specific Windows services
+Default Policy,"netsh advfirewall set allprofiles firewallpolicy blockinbound,allowoutbound",sudo ufw default deny incoming; sudo ufw default allow outgoing,Medium,Yes,Granular control per profile (domain/private/public)
+Delete Rule,"netsh advfirewall firewall delete rule name=""RuleName""",sudo ufw delete RULE_NUMBER,Low,Yes,Rule deletion by name or properties
+Reset to Defaults,netsh advfirewall reset,sudo ufw --force reset,Low,Yes,Complete firewall reset available
+Show Status,netsh advfirewall show allprofiles,sudo ufw status verbose,Low,Yes,Shows status per profile
+Add IP Exception,"netsh advfirewall firewall add rule name=""RuleName"" dir=in action=allow remoteip=IP",sudo ufw allow from IP,Medium,Yes,Supports IP ranges and subnets
+Rate Limiting,Not directly available in basic firewall,sudo ufw limit ssh,High,No,Advanced rate limiting requires 3rd party tools
+Logging Control,netsh advfirewall set allprofiles logging droplevel enable,sudo ufw logging on/off,Low,Yes,Comprehensive logging options

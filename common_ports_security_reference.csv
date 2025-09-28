@@ -1,0 +1,16 @@
+Port_Number,Protocol,Service_Name,Common_Use,Security_Risk,Default_Action,Firewall_Rule_Reason,Recommended_Config,Testing_Command
+21,TCP,FTP,File Transfer,High,Block,"Unencrypted file transfers, credential exposure",Block or use SFTP/FTPS instead,telnet host 21
+22,TCP,SSH,Secure Shell Remote Access,Medium,Allow (with restrictions),"Secure but limit to trusted IPs, enable fail2ban",Allow with IP restrictions + key auth,ssh user@host
+23,TCP,Telnet,Terminal Access,Very High,Block,"Unencrypted, credentials sent in plaintext","Block completely, use SSH instead",telnet host 23
+25,TCP,SMTP,Email Sending,Medium,Block (external),"Open relay risks, spam potential","Block external, allow internal only",telnet host 25
+53,UDP/TCP,DNS,Domain Name Resolution,Low,Allow,Essential for web browsing and domain resolution,Allow but monitor for DNS amplification,nslookup domain host
+80,TCP,HTTP,Web Traffic,Medium,Allow,"Standard web traffic, but monitor for attacks",Allow with WAF protection,curl http://host
+110,TCP,POP3,Email Retrieval,High,Block,Unencrypted email retrieval,"Block, use POP3S (995) instead",telnet host 110
+143,TCP,IMAP,Email Access,Medium,Block,"Email access, prefer encrypted alternatives",Allow but prefer IMAPS (993),telnet host 143
+443,TCP,HTTPS,Secure Web Traffic,Low,Allow,"Encrypted web traffic, generally safe",Allow with proper certificate validation,curl https://host
+993,TCP,IMAPS,Secure Email Access,Low,Allow,"Encrypted email access, secure",Allow for secure email clients,openssl s_client -connect host:993
+995,TCP,POP3S,Secure Email Retrieval,Low,Allow,"Encrypted email retrieval, secure",Allow for secure email clients,openssl s_client -connect host:995
+1433,TCP,SQL Server,Database Access,High,Block (external),Database should not be externally accessible,"Block external, allow internal networks only",telnet host 1433
+3389,TCP,RDP,Remote Desktop,High,Block (external),Remote access should be restricted/VPN only,"Block external, use VPN for remote access",mstsc (Windows) or rdesktop (Linux)
+5432,TCP,PostgreSQL,Database Access,High,Block (external),Database should not be externally accessible,"Block external, allow internal networks only",psql -h host -p 5432
+8080,TCP,HTTP Alt,Alternative Web,Medium,Allow,"Alternative web port, monitor for unauthorized services",Monitor and restrict to authorized applications,curl http://host:8080

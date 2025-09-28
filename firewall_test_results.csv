@@ -1,0 +1,9 @@
+Test_ID,Platform,Test_Method,Target_Port,Protocol,Expected_Result,Actual_Result,Rule_Applied,Test_Status,Timestamp,Notes
+WIN_001,Windows,Telnet,23,TCP,Connection Refused,Connection Refused,Block Port 23,PASS,2025-09-28 14:30:00,Telnet connection properly blocked by firewall rule
+WIN_002,Windows,PowerShell Test-NetConnection,23,TCP,Connection Failed,Connection Failed,Block Port 23,PASS,2025-09-28 14:32:00,PowerShell confirms port 23 is unreachable
+WIN_003,Windows,Netstat,22,TCP,Port Listening,Port Listening,Allow SSH,PASS,2025-09-28 14:35:00,SSH service running and accessible through firewall
+WIN_004,Windows,SSH Test,22,TCP,Connection Success,Connection Success,Allow SSH,PASS,2025-09-28 14:40:00,Successful SSH authentication through allowed port
+LIN_001,Linux,Telnet,23,TCP,Connection Refused,Connection Refused,Deny Port 23,PASS,2025-09-28 15:00:00,UFW successfully blocking telnet connections
+LIN_002,Linux,Netcat,23,TCP,Connection Failed,Connection Failed,Deny Port 23,PASS,2025-09-28 15:02:00,Netcat confirms port 23 is filtered
+LIN_003,Linux,Nmap,22,TCP,Port Open,Port Open,Allow SSH,PASS,2025-09-28 15:05:00,Nmap shows SSH port is open and accessible
+LIN_004,Linux,SSH Test,22,TCP,Connection Success,Connection Success,Allow SSH,PASS,2025-09-28 15:10:00,SSH connection established successfully

@@ -1,0 +1,7 @@
+Rule_ID,Platform,Rule_Name,Direction,Action,Protocol,Port,Source,Destination,Profile,Command_Used,Status,Removal_Command,Purpose
+WIN_R001,Windows,Block Telnet Port 23,Inbound,Block,TCP,23,Any,Local,All,"netsh advfirewall firewall add rule name=""Block Telnet Port 23"" dir=in action=block protocol=TCP localport=23",Created & Tested,"netsh advfirewall firewall delete rule name=""Block Telnet Port 23""",Testing port blocking functionality
+WIN_R002,Windows,Allow SSH Port 22 Inbound,Inbound,Allow,TCP,22,Any,Local,All,"netsh advfirewall firewall add rule name=""Allow SSH Port 22"" dir=in action=allow protocol=TCP localport=22",Created & Tested,"netsh advfirewall firewall delete rule name=""Allow SSH Port 22""",Enable SSH access for remote management
+WIN_R003,Windows,Allow SSH Port 22 Outbound,Outbound,Allow,TCP,22,Local,Any,All,"netsh advfirewall firewall add rule name=""Allow SSH Port 22 Outbound"" dir=out action=allow protocol=TCP localport=22",Created & Tested,"netsh advfirewall firewall delete rule name=""Allow SSH Port 22 Outbound""",Allow outbound SSH connections
+LIN_R001,Linux,Deny Telnet,Inbound,Deny,TCP,23,Any,Local,All,sudo ufw deny 23/tcp,Created & Tested,sudo ufw delete deny 23/tcp,Testing UFW port blocking
+LIN_R002,Linux,Allow SSH,Inbound,Allow,TCP,22,Any,Local,All,sudo ufw allow ssh,Created & Tested,sudo ufw delete allow ssh,Maintain remote access via SSH
+LIN_R003,Linux,Default Deny Incoming,Inbound,Deny,All,All,Any,Local,All,sudo ufw default deny incoming,Active,sudo ufw default allow incoming,Default security posture
